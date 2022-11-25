@@ -57,6 +57,14 @@ final class SemVerComparableTests: XCTestCase {
                 lhs: try SemVer(string: "1.0.0-rc.1"),
                 rhs: try SemVer(string: "1.0.0")
             ),
+            (
+                lhs: try SemVer(string: "1.0.0-2.3.5"),
+                rhs: try SemVer(string: "1.0.0-2.3.6")
+            ),
+            (
+                lhs: try SemVer(string: "1.0.0-2.5.9"),
+                rhs: try SemVer(string: "1.0.0-3.3.6")
+            ),
         ]
 
         for ver in vers {
@@ -109,6 +117,14 @@ final class SemVerComparableTests: XCTestCase {
             (
                 lhs: try SemVer(string: "1.0.0"),
                 rhs: try SemVer(string: "1.0.0-rc.1")
+            ),
+            (
+                lhs: try SemVer(string: "1.0.0-2.3.6"),
+                rhs: try SemVer(string: "1.0.0-2.3.5")
+            ),
+            (
+                lhs: try SemVer(string: "1.0.0-2.4.4"),
+                rhs: try SemVer(string: "1.0.0-2.3.5")
             ),
         ]
 
