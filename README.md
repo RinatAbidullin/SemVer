@@ -9,6 +9,11 @@
 Major  |  |   |        Build
    Minor  |   |
       Patch   PreRelease
+
+⚠️ Обратите внимание, что PreRelease и Build
+представляются в виде набора идентификаторов,
+разделяемых точкой (например, sha.5114f85 
+или 23.243.6754.2)
 ```
 
 ## Установка
@@ -18,7 +23,7 @@ Major  |  |   |        Build
 ```swift
 .package(
     url: "https://github.com/RinatAbidullin/SemVer.git", 
-    .upToNextMajor(from: "1.0.0")
+    .upToNextMajor(from: "2.0.0")
 )
 ```
 
@@ -40,22 +45,22 @@ Major  |  |   |        Build
        major: 1,
        minor: 4,
        patch: 32,
-       preRelease: ["alpha"]
+       preReleaseIdentifiers: ["alpha"]
    )
    // 3. Создаем версию "1.4.32+exp.sha.fd54sd"
    let version = try SemVer(
        major: 1,
        minor: 4,
        patch: 32,
-       build: ["exp", "sha", "fd54sd"]
+       buildIdentifiers: ["exp", "sha", "fd54sd"]
    )
    // 4. Создаем версию "1.4.32-beta+exp.sha.fd54sd"
    let version = try SemVer(
        major: 1,
        minor: 4,
        patch: 32,
-       preRelease: ["beta"],
-       build: ["exp", "sha", "fd54sd"]
+       preReleaseIdentifiers: ["beta"],
+       buildIdentifiers: ["exp", "sha", "fd54sd"]
    )
    ```
 
@@ -72,7 +77,7 @@ Major  |  |   |        Build
    let version = try SemVer(string: "2", allowSkippingMinorOrPatch: true)
    
    // Не используйте параметр allowSkippingMinorOrPatch, если собираетесь
-   // строго соответсвовать правилам semver.org
+   // строго соответствовать правилам semver.org
    ```
 
 ## Сравнение версий
@@ -112,8 +117,8 @@ let version = try SemVer(
     major: 1,
     minor: 4,
     patch: 32,
-    preRelease: ["beta"],
-    build: ["exp", "sha", "fd54sd"]
+    preReleaseIdentifiers: ["beta"],
+    buildIdentifiers: ["exp", "sha", "fd54sd"]
 )
 // Преобразовываем версию в строку
 let representation = version.asString // "1.4.32-beta+exp.sha.fd54sd"

@@ -11,6 +11,6 @@ extension SemVer: Equatable {
         lhs.major == rhs.major &&
         lhs.minor == rhs.minor &&
         lhs.patch == rhs.patch &&
-        lhs.preRelease == rhs.preRelease
+        lhs.preReleaseIdentifiers == rhs.preReleaseIdentifiers
     }
 }

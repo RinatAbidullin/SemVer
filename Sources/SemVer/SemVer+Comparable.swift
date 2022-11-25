@@ -16,19 +16,19 @@ extension SemVer: Comparable {
         guard lhs.patch == rhs.patch else {
             return lhs.patch < rhs.patch
         }
-        if !lhs.preRelease.isEmpty && rhs.preRelease.isEmpty {
+        if !lhs.preReleaseIdentifiers.isEmpty && rhs.preReleaseIdentifiers.isEmpty {
             return true
         }
-        if lhs.preRelease.isEmpty && !rhs.preRelease.isEmpty {
+        if lhs.preReleaseIdentifiers.isEmpty && !rhs.preReleaseIdentifiers.isEmpty {
             return false
         }
 
-        for i in 0 ..< min(lhs.preRelease.count, rhs.preRelease.count) {
-            guard lhs.preRelease[i] != rhs.preRelease[i] else { continue }
-            return Self.isLess(lhs.preRelease[i], than: rhs.preRelease[i])
+        for i in 0 ..< min(lhs.preReleaseIdentifiers.count, rhs.preReleaseIdentifiers.count) {
+            guard lhs.preReleaseIdentifiers[i] != rhs.preReleaseIdentifiers[i] else { continue }
+            return Self.isLess(lhs.preReleaseIdentifiers[i], than: rhs.preReleaseIdentifiers[i])
         }
 
-        return lhs.preRelease.count < rhs.preRelease.count
+        return lhs.preReleaseIdentifiers.count < rhs.preReleaseIdentifiers.count
     }
 
     private static func isLess(_ lhsIdentifier: String, than rhsIdentifier: String) -> Bool {

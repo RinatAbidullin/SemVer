@@ -14,8 +14,8 @@ final class SemVerTests: XCTestCase {
         XCTAssertEqual(version.major, 1)
         XCTAssertEqual(version.minor, 4)
         XCTAssertEqual(version.patch, 32)
-        XCTAssertEqual(version.preRelease, [])
-        XCTAssertEqual(version.build, [])
+        XCTAssertEqual(version.preReleaseIdentifiers, [])
+        XCTAssertEqual(version.buildIdentifiers, [])
     }
 
     func testMajorMinorPatchPreRelease() throws {
@@ -23,8 +23,8 @@ final class SemVerTests: XCTestCase {
         XCTAssertEqual(version.major, 1)
         XCTAssertEqual(version.minor, 4)
         XCTAssertEqual(version.patch, 32)
-        XCTAssertEqual(version.preRelease, ["alpha"])
-        XCTAssertEqual(version.build, [])
+        XCTAssertEqual(version.preReleaseIdentifiers, ["alpha"])
+        XCTAssertEqual(version.buildIdentifiers, [])
     }
 
     func testMajorMinorPatchBuild() throws {
@@ -32,8 +32,8 @@ final class SemVerTests: XCTestCase {
         XCTAssertEqual(version.major, 1)
         XCTAssertEqual(version.minor, 4)
         XCTAssertEqual(version.patch, 32)
-        XCTAssertEqual(version.preRelease, [])
-        XCTAssertEqual(version.build, ["exp", "sha", "5114f85"])
+        XCTAssertEqual(version.preReleaseIdentifiers, [])
+        XCTAssertEqual(version.buildIdentifiers, ["exp", "sha", "5114f85"])
     }
 
     func testMajorMinorPatchPreReleaseBuild() throws {
@@ -41,8 +41,8 @@ final class SemVerTests: XCTestCase {
         XCTAssertEqual(version.major, 1)
         XCTAssertEqual(version.minor, 4)
         XCTAssertEqual(version.patch, 32)
-        XCTAssertEqual(version.preRelease, ["alpha"])
-        XCTAssertEqual(version.build, ["1032"])
+        XCTAssertEqual(version.preReleaseIdentifiers, ["alpha"])
+        XCTAssertEqual(version.buildIdentifiers, ["1032"])
     }
 
     func testMajorMinorPatchPreReleaseSeparatedBuild() throws {
@@ -50,8 +50,8 @@ final class SemVerTests: XCTestCase {
         XCTAssertEqual(version.major, 1)
         XCTAssertEqual(version.minor, 4)
         XCTAssertEqual(version.patch, 32)
-        XCTAssertEqual(version.preRelease, ["alpha"])
-        XCTAssertEqual(version.build, ["exp", "sha", "5114f85"])
+        XCTAssertEqual(version.preReleaseIdentifiers, ["alpha"])
+        XCTAssertEqual(version.buildIdentifiers, ["exp", "sha", "5114f85"])
     }
 
     func testMajorMinorPatchSeparatedPreReleaseBuild() throws {
@@ -59,8 +59,8 @@ final class SemVerTests: XCTestCase {
         XCTAssertEqual(version.major, 1)
         XCTAssertEqual(version.minor, 4)
         XCTAssertEqual(version.patch, 32)
-        XCTAssertEqual(version.preRelease, ["alpha", "1", "2"])
-        XCTAssertEqual(version.build, ["5114f85"])
+        XCTAssertEqual(version.preReleaseIdentifiers, ["alpha", "1", "2"])
+        XCTAssertEqual(version.buildIdentifiers, ["5114f85"])
     }
 
     func testSkippingPatch() throws {
@@ -68,8 +68,8 @@ final class SemVerTests: XCTestCase {
         XCTAssertEqual(version.major, 1)
         XCTAssertEqual(version.minor, 4)
         XCTAssertEqual(version.patch, 0)
-        XCTAssertEqual(version.preRelease, [])
-        XCTAssertEqual(version.build, [])
+        XCTAssertEqual(version.preReleaseIdentifiers, [])
+        XCTAssertEqual(version.buildIdentifiers, [])
     }
 
     func testSkippingMinorAndPatch() throws {
@@ -77,8 +77,8 @@ final class SemVerTests: XCTestCase {
         XCTAssertEqual(version.major, 1)
         XCTAssertEqual(version.minor, 0)
         XCTAssertEqual(version.patch, 0)
-        XCTAssertEqual(version.preRelease, [])
-        XCTAssertEqual(version.build, [])
+        XCTAssertEqual(version.preReleaseIdentifiers, [])
+        XCTAssertEqual(version.buildIdentifiers, [])
     }
 
     func testPreReleaseBuildSkippingPatch() throws {
@@ -86,8 +86,8 @@ final class SemVerTests: XCTestCase {
         XCTAssertEqual(version.major, 1)
         XCTAssertEqual(version.minor, 4)
         XCTAssertEqual(version.patch, 0)
-        XCTAssertEqual(version.preRelease, ["alpha"])
-        XCTAssertEqual(version.build, ["exp", "sha", "5114f85"])
+        XCTAssertEqual(version.preReleaseIdentifiers, ["alpha"])
+        XCTAssertEqual(version.buildIdentifiers, ["exp", "sha", "5114f85"])
     }
 
     func testPreReleaseBuildSkippingMinorAndPatch() throws {
@@ -95,12 +95,12 @@ final class SemVerTests: XCTestCase {
         XCTAssertEqual(version.major, 3)
         XCTAssertEqual(version.minor, 0)
         XCTAssertEqual(version.patch, 0)
-        XCTAssertEqual(version.preRelease, ["alpha"])
-        XCTAssertEqual(version.build, ["exp", "sha", "5114f85"])
+        XCTAssertEqual(version.preReleaseIdentifiers, ["alpha"])
+        XCTAssertEqual(version.buildIdentifiers, ["exp", "sha", "5114f85"])
     }
 
     func testStringRepresentation() throws {
-        let version = try SemVer(major: 2, minor: 5, patch: 12, preRelease: ["beta"], build: ["exp", "sha", "5114f85"])
+        let version = try SemVer(major: 2, minor: 5, patch: 12, preReleaseIdentifiers: ["beta"], buildIdentifiers: ["exp", "sha", "5114f85"])
         XCTAssertEqual(version.asString, "2.5.12-beta+exp.sha.5114f85")
     }
 
@@ -109,8 +109,8 @@ final class SemVerTests: XCTestCase {
         XCTAssertEqual(version.major, 1)
         XCTAssertEqual(version.minor, 4)
         XCTAssertEqual(version.patch, 32)
-        XCTAssertEqual(version.preRelease, ["alpha-beta"])
-        XCTAssertEqual(version.build, ["exp-sha-5114f85"])
+        XCTAssertEqual(version.preReleaseIdentifiers, ["alpha-beta"])
+        XCTAssertEqual(version.buildIdentifiers, ["exp-sha-5114f85"])
     }
 
     func testBuildIncludingHyphens() throws {
@@ -118,8 +118,8 @@ final class SemVerTests: XCTestCase {
         XCTAssertEqual(version.major, 1)
         XCTAssertEqual(version.minor, 4)
         XCTAssertEqual(version.patch, 32)
-        XCTAssertEqual(version.preRelease, [])
-        XCTAssertEqual(version.build, ["exp-sha-5114f85"])
+        XCTAssertEqual(version.preReleaseIdentifiers, [])
+        XCTAssertEqual(version.buildIdentifiers, ["exp-sha-5114f85"])
     }
 
     func testInvalidFormat() throws {
@@ -144,6 +144,6 @@ final class SemVerTests: XCTestCase {
         XCTAssertThrowsError(try SemVer(string: "1.4.", allowSkippingMinorOrPatch: true))
         XCTAssertThrowsError(try SemVer(string: "1.4"))
         XCTAssertThrowsError(try SemVer(string: "1"))
-        XCTAssertThrowsError(try SemVer(major: 2, minor: 5, patch: 12, preRelease: ["beta"], build: ["exp", "sha", "01"]))
+        XCTAssertThrowsError(try SemVer(major: 2, minor: 5, patch: 12, preReleaseIdentifiers: ["beta"], buildIdentifiers: ["exp", "sha", "01"]))
     }
 }

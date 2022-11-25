@@ -15,12 +15,12 @@ final class SemVerEquatableTests: XCTestCase {
             try SemVer(major: 3, minor: 14, patch: 15)
         )
         XCTAssertEqual(
-            try SemVer(major: 3, minor: 14, patch: 15, preRelease: ["alpha"]),
-            try SemVer(major: 3, minor: 14, patch: 15, preRelease: ["alpha"])
+            try SemVer(major: 3, minor: 14, patch: 15, preReleaseIdentifiers: ["alpha"]),
+            try SemVer(major: 3, minor: 14, patch: 15, preReleaseIdentifiers: ["alpha"])
         )
         XCTAssertEqual(
-            try SemVer(major: 3, minor: 14, patch: 15, preRelease: ["alpha"], build: ["1234"]),
-            try SemVer(major: 3, minor: 14, patch: 15, preRelease: ["alpha"], build: ["5678"])
+            try SemVer(major: 3, minor: 14, patch: 15, preReleaseIdentifiers: ["alpha"], buildIdentifiers: ["1234"]),
+            try SemVer(major: 3, minor: 14, patch: 15, preReleaseIdentifiers: ["alpha"], buildIdentifiers: ["5678"])
         )
     }
 
@@ -38,12 +38,12 @@ final class SemVerEquatableTests: XCTestCase {
             try SemVer(major: 3, minor: 14, patch: 16)
         )
         XCTAssertNotEqual(
-            try SemVer(major: 3, minor: 14, patch: 15, preRelease: ["alpha"]),
-            try SemVer(major: 3, minor: 14, patch: 15, preRelease: ["beta"])
+            try SemVer(major: 3, minor: 14, patch: 15, preReleaseIdentifiers: ["alpha"]),
+            try SemVer(major: 3, minor: 14, patch: 15, preReleaseIdentifiers: ["beta"])
         )
         XCTAssertNotEqual(
-            try SemVer(major: 3, minor: 14, patch: 15, preRelease: ["alpha"], build: ["1234"]),
-            try SemVer(major: 3, minor: 14, patch: 15, preRelease: ["beta"], build: ["1234"])
+            try SemVer(major: 3, minor: 14, patch: 15, preReleaseIdentifiers: ["alpha"], buildIdentifiers: ["1234"]),
+            try SemVer(major: 3, minor: 14, patch: 15, preReleaseIdentifiers: ["beta"], buildIdentifiers: ["1234"])
         )
     }
 }
