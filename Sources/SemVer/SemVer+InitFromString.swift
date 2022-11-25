@@ -62,6 +62,6 @@ extension SemVer {
             patch = try Validator.validate(version: version[2])
         }
 
-        try self.init(major: major, minor: minor, patch: patch, preRelease: preRelease, build: build)
+        try self.init(major: major, minor: minor, patch: patch, preReleaseIdentifiers: preRelease, buildIdentifiers: build)
     }
 }

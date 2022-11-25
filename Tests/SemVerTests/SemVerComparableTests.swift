@@ -14,20 +14,20 @@ final class SemVerComparableTests: XCTestCase {
     func testLess() throws {
         let vers: [ComparableSemVers] = [
             (
-                lhs: try SemVer(major: 4, minor: 2, patch: 17, preRelease: [], build: []),
-                rhs: try SemVer(major: 4, minor: 2, patch: 18, preRelease: [], build: [])
+                lhs: try SemVer(major: 4, minor: 2, patch: 17, preReleaseIdentifiers: [], buildIdentifiers: []),
+                rhs: try SemVer(major: 4, minor: 2, patch: 18, preReleaseIdentifiers: [], buildIdentifiers: [])
             ),
             (
-                lhs: try SemVer(major: 4, minor: 2, patch: 17, preRelease: [], build: []),
-                rhs: try SemVer(major: 4, minor: 3, patch: 17, preRelease: [], build: [])
+                lhs: try SemVer(major: 4, minor: 2, patch: 17, preReleaseIdentifiers: [], buildIdentifiers: []),
+                rhs: try SemVer(major: 4, minor: 3, patch: 17, preReleaseIdentifiers: [], buildIdentifiers: [])
             ),
             (
-                lhs: try SemVer(major: 4, minor: 2, patch: 17, preRelease: [], build: []),
-                rhs: try SemVer(major: 5, minor: 2, patch: 17, preRelease: [], build: [])
+                lhs: try SemVer(major: 4, minor: 2, patch: 17, preReleaseIdentifiers: [], buildIdentifiers: []),
+                rhs: try SemVer(major: 5, minor: 2, patch: 17, preReleaseIdentifiers: [], buildIdentifiers: [])
             ),
             (
-                lhs: try SemVer(major: 1, minor: 0, patch: 0, preRelease: ["alpha"], build: []),
-                rhs: try SemVer(major: 1, minor: 0, patch: 0, preRelease: [], build: [])
+                lhs: try SemVer(major: 1, minor: 0, patch: 0, preReleaseIdentifiers: ["alpha"], buildIdentifiers: []),
+                rhs: try SemVer(major: 1, minor: 0, patch: 0, preReleaseIdentifiers: [], buildIdentifiers: [])
             ),
             (
                 lhs: try SemVer(string: "1.0.0-alpha"),
@@ -75,20 +75,20 @@ final class SemVerComparableTests: XCTestCase {
     func testGreater() throws {
         let vers: [ComparableSemVers] = [
             (
-                lhs: try SemVer(major: 4, minor: 2, patch: 17, preRelease: [], build: []),
-                rhs: try SemVer(major: 4, minor: 2, patch: 15, preRelease: [], build: [])
+                lhs: try SemVer(major: 4, minor: 2, patch: 17, preReleaseIdentifiers: [], buildIdentifiers: []),
+                rhs: try SemVer(major: 4, minor: 2, patch: 15, preReleaseIdentifiers: [], buildIdentifiers: [])
             ),
             (
-                lhs: try SemVer(major: 4, minor: 3, patch: 17, preRelease: [], build: []),
-                rhs: try SemVer(major: 4, minor: 2, patch: 17, preRelease: [], build: [])
+                lhs: try SemVer(major: 4, minor: 3, patch: 17, preReleaseIdentifiers: [], buildIdentifiers: []),
+                rhs: try SemVer(major: 4, minor: 2, patch: 17, preReleaseIdentifiers: [], buildIdentifiers: [])
             ),
             (
-                lhs: try SemVer(major: 5, minor: 2, patch: 17, preRelease: [], build: []),
-                rhs: try SemVer(major: 4, minor: 2, patch: 17, preRelease: [], build: [])
+                lhs: try SemVer(major: 5, minor: 2, patch: 17, preReleaseIdentifiers: [], buildIdentifiers: []),
+                rhs: try SemVer(major: 4, minor: 2, patch: 17, preReleaseIdentifiers: [], buildIdentifiers: [])
             ),
             (
-                lhs: try SemVer(major: 1, minor: 0, patch: 0, preRelease: [], build: []),
-                rhs: try SemVer(major: 1, minor: 0, patch: 0, preRelease: ["alpha"], build: [])
+                lhs: try SemVer(major: 1, minor: 0, patch: 0, preReleaseIdentifiers: [], buildIdentifiers: []),
+                rhs: try SemVer(major: 1, minor: 0, patch: 0, preReleaseIdentifiers: ["alpha"], buildIdentifiers: [])
             ),
             (
                 lhs: try SemVer(string: "1.0.0-alpha.3"),
