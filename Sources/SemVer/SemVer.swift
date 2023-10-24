@@ -13,17 +13,6 @@ public struct SemVer {
     public let preReleaseIdentifiers: [String]
     public let buildIdentifiers: [String]
 
-    public var asString: String {
-        var version = "\(major).\(minor).\(patch)"
-        if !preReleaseIdentifiers.isEmpty {
-            version.append("-\(preReleaseIdentifiers.joined(separator: "."))")
-        }
-        if !buildIdentifiers.isEmpty {
-            version.append("+\(buildIdentifiers.joined(separator: "."))")
-        }
-        return version
-    }
-
     public init(
         major: Int,
         minor: Int,
