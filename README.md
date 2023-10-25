@@ -88,11 +88,8 @@ Major  |  |   |        Build
    // Создаем версию "2.0.0"
    let version = try SemVer(string: "2", options: [.allowSkippingMinorOrPatch])
    
-   // Создаем версию "1.0.0-alpha+1032"
+   // Создаем версию "1.0.0-alpha"
    let version = try SemVer(string: "1.0-alpha")
-   
-   // ⚠️ Не используйте опцию `.allowSkippingMinorOrPatch`, если собираетесь
-   // строго соответствовать правилам semver.org
    ```
 
 ## Сравнение версий
