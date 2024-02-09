@@ -15,7 +15,8 @@ let package = Package(
     targets: [
         .target(
             name: "SemVer",
-            dependencies: []
+            dependencies: [],
+            resources: [.copy("PrivacyInfo.xcprivacy")]
         ),
         .testTarget(
             name: "SemVerTests",
