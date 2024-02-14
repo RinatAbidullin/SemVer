@@ -13,4 +13,5 @@ public enum SemVerError: Error {
     case versionCannotBeNegative
     case versionIsNotRepresentedByNumber
     case versionMustNotContainLeadingZeroes
+    case versionNumberDataTypeOverflow
 }
