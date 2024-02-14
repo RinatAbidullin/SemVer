@@ -168,3 +168,32 @@ let representation = version.asString(with: [.omitMinorAndPatchIfPossible]) // "
 ```swift
 let appVersion = Bundle.semVer // "12.1.1+1153"
 ```
+
+## Инкрементация версии
+
+Чтобы инкрементировать (повысить) версию, используйте функцию `next(...)`:
+
+```swift
+let version = try SemVer(string: "1.4.32")
+let newMajorVersion = try version.next(.major) // "2.0.0"
+let newMinorVersion = try version.next(.minor) // "1.5.0"
+let newPatchVersion = try version.next(.patch) // "1.4.33"
+```
+
+По умолчанию компоненты версии `PreRelease` и `Build` для инкрементированной версии удаляются:
+
+```swift
+let version = try SemVer(string: "1.4.32-beta+exp.sha.fd54sd")
+let newMinorVersion = try version.next(.minor) // "1.5.0"
+```
+
+Чтобы изменить это поведение, используйте второй параметр. Например, `(preRelease: .keep, build: .delete)` для инкрементированной версии оставит без изменений  `PreRelease` и удалит `Build` :
+
+```swift
+let version = try SemVer(string: "1.4.32-beta+exp.sha.fd54sd")
+let newMinorVersion = try version.next(
+    .minor, 
+    with: (preRelease: .keep, build: .delete)
+) 
+// "1.5.0-beta"
+```
