@@ -1,6 +1,6 @@
 # SemVer
 
-Реализация семантического версионирования. Подробно о нем вы можете прочитать на сайте [semver.org](https://semver.org/lang/ru/)
+Implementation of semantic versioning. You can read more about it on the [semver.org](https://semver.org) website.
 
 ```
     3.25.12-alpha+sha.5114f85
@@ -10,15 +10,20 @@ Major  |  |   |        Build
    Minor  |   |
       Patch   PreRelease
 
-⚠️ Обратите внимание, что PreRelease и Build
-представляются в виде набора идентификаторов,
-разделяемых точкой (например, sha.5114f85 
-или 23.243.6754.2)
+⚠️ Note that PreRelease and Build
+are represented as a set of identifiers
+separated by a dot (e.g., sha.5114f85 
+or 23.243.6754.2).
 ```
 
-## Установка
+## Translations
 
-Добавить библиотеку можно через SPM:
+Translation is available in the following languages:
+- [RU](README_RU.md)
+
+## Installation
+
+You can add the library via SPM:
 
 ```swift
 .package(
@@ -27,21 +32,21 @@ Major  |  |   |        Build
 )
 ```
 
-## Создание версии
+## Creating a Version
 
-Создать версию можно двумя способами:
+You can create a version in two ways:
 
-1. Передачей всех компонентов отдельно:
+1. By passing all components separately:
 
    ```swift
-   // 1. Создаем версию "1.4.32"
+   // 1. Create version "1.4.32"
    let version = try SemVer(
        major: 1,
        minor: 4,
        patch: 32
    )
    
-   // 2. Создаем версию "1.4.32-alpha"
+   // 2. Create version "1.4.32-alpha"
    let version = try SemVer(
        major: 1,
        minor: 4,
@@ -49,7 +54,7 @@ Major  |  |   |        Build
        preReleaseIdentifiers: ["alpha"]
    )
    
-   // 3. Создаем версию "1.4.32+exp.sha.fd54sd"
+   // 3. Create version "1.4.32+exp.sha.fd54sd"
    let version = try SemVer(
        major: 1,
        minor: 4,
@@ -57,7 +62,7 @@ Major  |  |   |        Build
        buildIdentifiers: ["exp", "sha", "fd54sd"]
    )
    
-   // 4. Создаем версию "1.4.32-beta+exp.sha.fd54sd"
+   // 4. Create version "1.4.32-beta+exp.sha.fd54sd"
    let version = try SemVer(
        major: 1,
        minor: 4,
@@ -67,69 +72,69 @@ Major  |  |   |        Build
    )
    ```
 
-2. Из строки.
+2. From a string.
 
-   2.1 Строковое представление версии должно строго соответствовать требованиям `SemVer`, т.е. недопустимо опускать компоненты `Minor` или `Patch`, когда они равны `0`:
+   2.1 The string representation of the version must strictly adhere to `SemVer` specifications, meaning you cannot omit `Minor` or `Patch` components when they are `0`:
 
    ```swift
-   // Создаем версию "1.4.0"
+   // Create version "1.4.0"
    let version = try SemVer(string: "1.4.0")
    
-   // Создаем версию "1.4.2-alpha+1032"
+   // Create version "1.4.2-alpha+1032"
    let version = try SemVer(string: "1.4.2-alpha+1032")
    ```
    
-   2.2 Строковое представление версии может не соответствовать требованиям `SemVer`, т.е. возможны случаи, когда опускаются компоненты `Minor` или `Patch`, если они равны `0`. В этом случае можно использовать опцию `.allowSkippingMinorOrPatch`:
-   
+   2.2 The string representation of the version may not adhere strictly to `SemVer` specifications, meaning you can omit `Minor` or `Patch` components if they are `0`. In this case, use the option `.allowSkippingMinorOrPatch`:
+
    ```swift
-   // Создаем версию "1.4.0"
+   // Create version "1.4.0"
    let version = try SemVer(string: "1.4", options: [.allowSkippingMinorOrPatch])
    
-   // Создаем версию "2.0.0"
+   // Create version "2.0.0"
    let version = try SemVer(string: "2", options: [.allowSkippingMinorOrPatch])
    
-   // Создаем версию "1.0.0-alpha"
+   // Create version "1.0.0-alpha"
    let version = try SemVer(string: "1.0-alpha")
    ```
 
-## Сравнение версий
+## Version Comparison
 
-Версии поддерживают сравнения согласно правилам, опубликованным на [semver.org](https://semver.org/lang/ru/):
+Versions support comparisons according to rules published on [semver.org](https://semver.org):
 
 ```swift
-// "1.2.0" должна быть младше, чем "1.2.1"
+// "1.2.0" should be less than "1.2.1"
 let version1 = try SemVer(string: "1.2.0")
 let version2 = try SemVer(string: "1.2.1")
 version1 < version2 // true
 
-// "1.2.0" должна быть старше, чем "1.2.0-alpha"
+// "1.2.0" should be greater than "1.2.0-alpha"
 let version1 = try SemVer(string: "1.2.0")
 let version2 = try SemVer(string: "1.2.0-alpha")
 version1 > version2 // true
 
-// "1.2.0-alpha" должна быть младше, чем "1.2.0-beta"
+// "1.2.0-alpha" should be less than "1.2.0-beta"
 let version1 = try SemVer(string: "1.2.0-alpha")
 let version2 = try SemVer(string: "1.2.0-beta")
 version1 < version2 // true
 
-// "1.2.0" должна быть эквивалентна "1.2.0+exp.sha.fd54sd", 
-// так как Build не учитыватся при сравнении
+// "1.2.0" should be equivalent to "1.2.0+exp.sha.fd54sd", 
+// as Build is ignored in comparison
 let version1 = try SemVer(string: "1.2.0")
 let version2 = try SemVer(string: "1.2.0+exp.sha.fd54sd")
 version1 == version2 // true
 
-// "1.2.0-beta.2" должна быть младше, чем "1.2.0-beta.11" (2 < 11)
+// "1.2.0-beta.2" should be less than "1.2.0-beta.11" (2 < 11)
 let version1 = try SemVer(string: "1.2.0-beta.2")
 let version2 = try SemVer(string: "1.2.0-beta.11")
 version1 < version2 // true
 ```
 
-## Преобразование версии в строку
+## Version to String Conversion
 
-Преобразуйте структуру `SemVer` в строку, например, когда нужно сохранить ее в БД:
+Convert the `SemVer` structure to a string, for instance, when you need to store it in a database:
 
 ```swift
-// Создаем версию
+// Create version
 let version = try SemVer(
     major: 1,
     minor: 4,
@@ -138,30 +143,30 @@ let version = try SemVer(
     buildIdentifiers: ["exp", "sha", "fd54sd"]
 )
 
-// Преобразовываем версию в строку, строго следуя правилам semver.org
+// Convert version to a string, strictly following semver.org rules
 let representation = version.asString // "1.4.32-beta+exp.sha.fd54sd"
 ```
 
-⚠️ При необходимости можно управлять итоговым видом строкового представления версии, передавая дополнительные опции `[OutputOption]` (но имейте в виду, что это будет являться послаблениями в строгие правила [semver.org](https://semver.org/lang/ru/)):
+⚠️ If necessary, you can control the final string representation of the version by passing additional options `[OutputOption]` (but keep in mind that this will be a relaxation of the strict rules of [semver.org](https://semver.org)):
 
 ```swift
-// Создаем версию "1.0.0"
+// Create version "1.0.0"
 let version = try SemVer(
     major: 1,
     minor: 0,
     patch: 0
 )
 
-// Преобразовываем версию в строку, опуская `Patch`, когда он может быть равен 0
+// Convert version to a string, omitting `Patch` when it can be `0`
 let representation = version.asString(with: [.omitPatchIfPossible]) // "1.0"
 
-// Преобразовываем версию в строку, опуская `Minor` и `Patch`, когда они могут быть равны 0
+// Convert version to a string, omitting `Minor` and `Patch` when they can be `0`
 let representation = version.asString(with: [.omitMinorAndPatchIfPossible]) // "1"
 ```
 
-## Версия приложения (Xcode-проект)
+## Application Version (Xcode Project)
 
-Доступно расширение для `Bundle`, позволяющее получить версию приложения как `SemVer`:
+An extension for `Bundle` is available, allowing you to obtain the application version as `SemVer`:
 
 ![app_version](README.assets/app_version.png)
 
@@ -169,9 +174,9 @@ let representation = version.asString(with: [.omitMinorAndPatchIfPossible]) // "
 let appVersion = Bundle.semVer // "12.1.1+1153"
 ```
 
-## Инкрементация версии
+## Version Incrementing
 
-Чтобы инкрементировать (повысить) версию, используйте функцию `next(...)`:
+To increment (increase) the version, use the `next(...)` function:
 
 ```swift
 let version = try SemVer(string: "1.4.32")
@@ -180,14 +185,14 @@ let newMinorVersion = try version.next(.minor) // "1.5.0"
 let newPatchVersion = try version.next(.patch) // "1.4.33"
 ```
 
-По умолчанию компоненты версии `PreRelease` и `Build` для инкрементированной версии удаляются:
+By default, the `PreRelease` and `Build` components of the incremented version are removed:
 
 ```swift
 let version = try SemVer(string: "1.4.32-beta+exp.sha.fd54sd")
 let newMinorVersion = try version.next(.minor) // "1.5.0"
 ```
 
-Чтобы изменить это поведение, используйте второй параметр. Например, `(preRelease: .keep, build: .delete)` для инкрементированной версии оставит без изменений  `PreRelease` и удалит `Build` :
+To change this behavior, use the second parameter. For example, `(preRelease: .keep, build: .delete)` will keep the `PreRelease` and delete the `Build` for the incremented version:
 
 ```swift
 let version = try SemVer(string: "1.4.32-beta+exp.sha.fd54sd")
